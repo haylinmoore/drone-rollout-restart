@@ -50,7 +50,7 @@ roleRef:
 In your drone pipeline define a step like this:
 ```yaml
 - name: rollout
-  image: toxicglados/drone-rollout:latest # This is public and on Dockerhub. You're welcome to build and upload your own.
+  image: toxicglados/drone-rollout-restart:latest # This is public and on Dockerhub. You're welcome to build and upload your own.
   pull: always
   settings:
     deployment: my-deployment-name
