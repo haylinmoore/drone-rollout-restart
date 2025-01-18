@@ -1,0 +1,28 @@
+---
+kind: pipeline
+type: docker
+name: build_image
+
+steps:
+- name: build-and-push
+  image: plugins/docker
+  settings:
+    repo: registry.hayl.in/www
+    tags:
+      - latest
+    dockerfile: Dockerfile
+    username:
+      from_secret: docker_username
+    password:
+      from_secret: docker_password
+    build_args:
+- name: rollout
+  image: haylinmoore/drone-rollout-restart:latest
+  pull: always
+  settings:
+    deployment: haylinmoore
+    namespace: default
+    kubernetes_server:
+      from_secret: kubernetes_server # Pulling these from secrets isn't required, but strongly encouraged
+    kubernetes_token:
+      from_secret: kubernetes_token
